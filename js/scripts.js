@@ -191,7 +191,7 @@
         var terms = $("#lterms").val();
         
         $.ajax({
-            type: "POST",
+            type: "post",
             url: "php/callmeform-process.php",
             data: "name=" + name + "&phone=" + phone + "&email=" + email + "&select=" + select + "&terms=" + terms, 
             success: function(text) {
@@ -247,9 +247,9 @@
         var message = $("#cmessage").val();
         var terms = $("#cterms").val();
         $.ajax({
-            type: "POST",
+            type: "post",
             url: "php/contactform-process.php",
-            data: "name=" + name + "&email=" + email + "&message=" + message + "&terms=" + terms, 
+            data: "name=" + name + "&email=" + email + "&message=" + message, 
             success: function(text) {
                 if (text == "success") {
                     cformSuccess();
