@@ -50,7 +50,7 @@
 		separator: ",",
 		speed: 2000,
 		complete: function () {
-			// Called after the entrance animation is executed.
+			
 		}
     });
     
@@ -116,35 +116,6 @@
     
 
     
-	var a = 0;
-	$(window).scroll(function() {
-		if ($('#counter').length) { 
-			var oTop = $('#counter').offset().top - window.innerHeight;
-			if (a == 0 && $(window).scrollTop() > oTop) {
-			$('.counter-value').each(function() {
-				var $this = $(this),
-				countTo = $this.attr('data-count');
-				$({
-				countNum: $this.text()
-				}).animate({
-					countNum: countTo
-				},
-				{
-					duration: 2000,
-					easing: 'swing',
-					step: function() {
-					$this.text(Math.floor(this.countNum));
-					},
-					complete: function() {
-					$this.text(this.countNum);
-					
-					}
-				});
-			});
-			a = 1;
-			}
-		}
-    });
 
 
    
@@ -155,16 +126,6 @@
 			$(this).removeClass('notEmpty');
 		}
     });
-
-
-    function lsubmitMSG(valid, msg) {
-        if (valid) {
-            var msgClasses = "h3 text-center tada animated";
-        } else {
-            var msgClasses = "h3 text-center";
-        }
-        $("#lmsgSubmit").removeClass().addClass(msgClasses).text(msg);
-    }
 
 
   
@@ -185,7 +146,7 @@
         var terms = $("#cterms").val();
         $.ajax({
             type: "POST",
-            url: "/Portfolio/php/contactform-process.php",
+            url: "/php/contactform-process.php",
             data: "name=" + name + "&email=" + email + "&message=" + message, 
             success: function(text) {
                 if (text == "success") {
