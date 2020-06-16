@@ -1,36 +1,57 @@
 <?php
-require 'PHPMailerAutoload.php';
-            require 'credential.php';
+$errorMSG = "";
 
-            $mail = new PHPMailer;
+if (empty($_POST["name"])) {
+    $errorMSG = "Name is required ";
+} else {
+    $name = $_POST["name"];
+}
 
-             //$mail->SMTPDebug = 4;                               // Enable verbose debug output
-            $to='tanaypatil36@gmail.com';
-            $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                               // Enable SMTP authentication
-            $mail->Username = EMAIL;                 // SMTP username
-            $mail->Password = PASS;                           // SMTP password
-            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = 587;                                    // TCP port to connect to
+if (empty($_POST["email"])) {
+    $errorMSG = "Email is required ";
+} else {
+    $email = $_POST["email"];
+}
 
-            $mail->setFrom(EMAIL, 'Tanay_portfolio');
-            $mail->addAddress($to);     // Add a recipient
+if (empty($_POST["message"])) {
+    $errorMSG = "Message is required ";
+} else {
+    $message = $_POST["message"];
+}
 
-            $mail->addReplyTo(EMAIL);
-            // print_r($_FILES['file']); exit;
-           
-            $mail->isHTML(true);                                  // Set email format to HTML
+if (empty($_POST["terms"])) {
+    $errorMSG = "Terms is required ";
+} else {
+    $terms = $_POST["terms"];
+}
 
-            $mail->Subject = $_POST['email'];
-            $mail->Body    = '<div style="border:2px solid red;">This is the HTML message body <b>in bold!</b></div>';
-            $mail->Body    = $_POST['message'];
-            $mail->AltBody = $_POST['message'];
+$EmailTo = "tanaypatil36@gmail.com";
+$Subject = "New message from Portfolio page";
 
-            if(!$mail->send()) {
-                echo 'Message could not be sent.';
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
-            } else {
-                echo '<p style="color:green;">Message has been sent';
-            }
+// prepare email body text
+$Body = "";
+$Body .= "Name: ";
+$Body .= $name;
+$Body .= "\n";
+$Body .= "Email: ";
+$Body .= $email;
+$Body .= "\n";
+$Body .= "Message: ";
+$Body .= $message;
+$Body .= "\n";
+
+
+// send email
+$success = mail($EmailTo, $Subject, $Body, "From:".$email);
+
+// redirect to success page
+if ($success && $errorMSG == ""){
+   echo "success";
+}else{
+    if($errorMSG == ""){
+        echo "Something went wrong :(";
+    } else {
+        echo $errorMSG;
+    }
+}
 ?>
