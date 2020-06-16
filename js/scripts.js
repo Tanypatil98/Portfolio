@@ -143,7 +143,7 @@
 		var name = $("#cname").val();
 		var email = $("#cemail").val();
         var message = $("#cmessage").val();
-        var terms = $("#cterms").val();
+        
         $.ajax({
             type: "POST",
             url: "/php/contactform-process.php",
